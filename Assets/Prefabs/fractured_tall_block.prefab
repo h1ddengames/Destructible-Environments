@@ -52,10 +52,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae3746982902984da45d346ecd70ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 1500
-  explosionRadius: 3
-  effectDistance: 6
-  rigidbodies:
+  _minExplosionForce: 1250
+  _maxExplosionForce: 2000
+  _minExplosionRadius: 3
+  _maxExplosionRadius: 4.5
+  _effectDistance: 4
+  _minExplosionRange: 0.5
+  _maxExplosionRange: 1
+  _replacementMaterial: {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137,
+    type: 3}
+  _boxCollider: {fileID: 2078939562}
+  _rigidbodies:
   - {fileID: 395797162}
   - {fileID: 395797160}
   - {fileID: 395797158}
@@ -64,7 +71,16 @@ MonoBehaviour:
   - {fileID: 395797152}
   - {fileID: 395797150}
   - {fileID: 395797148}
-  distances:
+  _renderers:
+  - {fileID: 7167708632341423892}
+  - {fileID: 5768088006583111345}
+  - {fileID: 4327262017652992060}
+  - {fileID: 1238671597770969076}
+  - {fileID: 7928509980191281846}
+  - {fileID: 4406843613734409108}
+  - {fileID: 5056218134638424737}
+  - {fileID: 1833557727791641999}
+  _distances:
   - 1.2232397
   - 2.0690596
   - 3.1482596
@@ -99,7 +115,7 @@ GameObject:
   - component: {fileID: 1833557727791641999}
   - component: {fileID: 395797148}
   - component: {fileID: 395797147}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +161,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,7 +224,7 @@ GameObject:
   - component: {fileID: 5056218134638424737}
   - component: {fileID: 395797150}
   - component: {fileID: 395797149}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +270,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -317,7 +333,7 @@ GameObject:
   - component: {fileID: 4406843613734409108}
   - component: {fileID: 395797152}
   - component: {fileID: 395797151}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +379,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -426,7 +442,7 @@ GameObject:
   - component: {fileID: 7928509980191281846}
   - component: {fileID: 395797154}
   - component: {fileID: 395797153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +488,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -535,7 +551,7 @@ GameObject:
   - component: {fileID: 1238671597770969076}
   - component: {fileID: 395797156}
   - component: {fileID: 395797155}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +597,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -644,7 +660,7 @@ GameObject:
   - component: {fileID: 4327262017652992060}
   - component: {fileID: 395797158}
   - component: {fileID: 395797157}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +706,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -753,7 +769,7 @@ GameObject:
   - component: {fileID: 5768088006583111345}
   - component: {fileID: 395797160}
   - component: {fileID: 395797159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +815,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -862,7 +878,7 @@ GameObject:
   - component: {fileID: 7167708632341423892}
   - component: {fileID: 395797162}
   - component: {fileID: 395797161}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,7 +924,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137, type: 3}
+  - {fileID: 2100000, guid: c5e036861821f4845be597bc88f8223c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
