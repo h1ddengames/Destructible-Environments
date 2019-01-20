@@ -170,6 +170,8 @@ namespace H1ddenGames
                         );
                     }
 
+                    _animator.SetTrigger("isBroken");
+                    _animator.StopPlayback();
                     UpdateClickableArea();
                 }
 
