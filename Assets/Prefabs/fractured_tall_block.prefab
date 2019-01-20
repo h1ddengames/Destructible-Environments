@@ -59,6 +59,7 @@ MonoBehaviour:
   _effectDistance: 4
   _minExplosionRange: 0.5
   _maxExplosionRange: 1
+  _cleanUpTime: 2
   _replacementMaterial: {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137,
     type: 3}
   _boxCollider: {fileID: 2078939562}
@@ -81,14 +82,15 @@ MonoBehaviour:
   - {fileID: 5056218134638424737}
   - {fileID: 1833557727791641999}
   _distances:
-  - 1.2232397
-  - 2.0690596
-  - 3.1482596
-  - 2.6432004
-  - 3.954869
-  - 3.5331976
-  - 1.4488324
-  - 1.1033006
+  - 0.8335711
+  - 0.97365564
+  - 1.165034
+  - 0.755433
+  - 2.1639602
+  - 1.7366092
+  - 1.2284112
+  - 2.2054744
+  _gameObjectsToCleanUp: []
 --- !u!65 &2078939562
 BoxCollider:
   m_ObjectHideFlags: 0

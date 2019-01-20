@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Linq;
 
 namespace H1ddenGames
 {
     namespace DestructibleEnvironment
     {
-        public class Destructible : MonoBehaviour
+        public class Destructible : MonoBehaviour, IPointerClickHandler 
         {
             [Header("Force's Power"), Tooltip("How much force should be given to the object's pieces?"), SerializeField] private float _minExplosionForce = 1000f;
             [SerializeField] private float _maxExplosionForce = 1800f;
@@ -32,6 +33,7 @@ namespace H1ddenGames
             private Vector3 _pos;
             private RaycastHit[] _hits;
             public List<GameObject> _gameObjectsToCleanUp = new List<GameObject>();
+            private Coroutine co;
 
             #region Getters and Setters
             public List<Rigidbody> Rigidbodies { get => _rigidbodies; set => _rigidbodies = value; }
@@ -52,25 +54,10 @@ namespace H1ddenGames
 
             private void Awake()
             {
-                if(BoxCollider == null)
-                {
-                    BoxCollider = gameObject.GetComponent<BoxCollider>();
-                }
-
-                if(Rigidbodies == null)
-                {
-                    FindRigidbodies();
-                }
-                
-                if(Renderers == null)
-                {
-                    FindMeshRenderers();
-                }
-
-                if(Distances == null)
-                {
-                    UpdateDistances();
-                }
+                if(BoxCollider == null) { BoxCollider = gameObject.GetComponent<BoxCollider>(); }
+                if(Rigidbodies == null) { Rigidbodies = gameObject.GetComponentsInChildren<Rigidbody>().ToList(); }
+                if(Renderers == null) { Renderers = gameObject.GetComponentsInChildren<MeshRenderer>().ToList(); }
+                if(Distances == null) { UpdateDistances(); }
 
                 ToggleRigidbodies(true);
             }
@@ -80,37 +67,29 @@ namespace H1ddenGames
                 UpdateClickableArea();
             }
 
-            public void FindRigidbodies()
+            /// <summary>
+            /// Updates the list of distances when the game starts and after every click. 
+            /// </summary>
+            [ContextMenu("Update Distances")]
+            public void UpdateDistances()
             {
-                Rigidbodies = gameObject.GetComponentsInChildren<Rigidbody>().ToList();
-            }
+                Distances.Clear();
 
-            public void FindMeshRenderers()
-            {
-                Renderers = gameObject.GetComponentsInChildren<MeshRenderer>().ToList();
+                foreach (var item in Rigidbodies)
+                {
+                    Distances.Add(Vector3.Distance(item.transform.localPosition, BoxCollider.center));
+                }
             }
 
             public void ReplaceMaterials()
             {
                 UpdateDistances();
 
-                for (int i = 0; i < Renderers.Count; i++)
-                {
-                    if(Distances[i] > EffectDistance)
-                    {
-                        if(Renderers[i].material.Equals(ReplacementMaterial))
-                        {
-                            return;
-                        } 
+                for (int i = 0; i < Renderers.Count; i++) {
+                    if(Distances[i] > EffectDistance) {
+                        if(Renderers[i].material != ReplacementMaterial) { Renderers[i].material = ReplacementMaterial; }
 
-                        Renderers[i].material = ReplacementMaterial;
-
-                        if(_gameObjectsToCleanUp.Contains(Renderers[i].gameObject))
-                        {
-                            return;
-                        }
-
-                        _gameObjectsToCleanUp.Add(Renderers[i].gameObject);
+                        if(!_gameObjectsToCleanUp.Contains(Renderers[i].gameObject)) { _gameObjectsToCleanUp.Add(Renderers[i].gameObject); }
                     } 
                 }
             }
@@ -126,90 +105,73 @@ namespace H1ddenGames
                 }
             }
 
-            /// <summary>
-            /// Updates the list of distances when the game starts and after every click. 
-            /// </summary>
-            [ContextMenu("Update Distances")]
-            public void UpdateDistances()
+            public void OnPointerClick(PointerEventData eventData)
             {
-                Distances.Clear();
+                // Make rigidbodies only react to physics.
+                ToggleRigidbodies(false);
 
-                foreach (var item in Rigidbodies) {
-                    Distances.Add(Vector3.Distance(item.transform.position, transform.position));
-                }
-            }
+                // Get current position of each fractured part.
+                UpdateDistances();
 
-            private void OnMouseOver()
-            {
-                if (Input.GetMouseButtonDown(0)) {
-                    // Make rigidbodies only react to physics.
-                    ToggleRigidbodies(false);
+                int i = 0;
+                foreach (var item in Rigidbodies)
+                {
+                    // If the distance from the clickable object is greater than the effect's distance, there's nothing to do. 
+                    if (Distances[i] > EffectDistance) { i++; }
+                    else {
+                        i++;
+                        // Otherwise, get the rigidbody and add an explosion force.
+                        Vector3 location = new Vector3(
+                            transform.position.x + Random.Range(MinExplosionRange, MaxExplosionRange),
+                            transform.position.y + Random.Range(MinExplosionRange, MaxExplosionRange),
+                            transform.position.z + Random.Range(MinExplosionRange, MaxExplosionRange)
+                        );
 
-                    // Get current position of each fractured part.
-                    UpdateDistances();
-
-                    int i = 0;
-                    foreach (var item in Rigidbodies) {
-                        // If the distance from the clickable object is greater than the effect's distance, there's nothing to do. 
-                        if (Distances[i] > EffectDistance) {
-                            i++;
-                        }
-                        else {
-                            i++;
-                            // Otherwise, get the rigidbody and add an explosion force.
-                            Vector3 location = new Vector3(
-                                transform.position.x + Random.Range(MinExplosionRange, MaxExplosionRange),
-                                transform.position.y + Random.Range(MinExplosionRange, MaxExplosionRange),
-                                transform.position.z + Random.Range(MinExplosionRange, MaxExplosionRange)
-                            );
-
-                            item.AddExplosionForce(
-                                Random.Range(MinExplosionForce, MaxExplosionForce),
-                                location,
-                                Random.Range(MinExplosionRadius, MaxExplosionRadius)
-                            );
-                        }
+                        item.AddExplosionForce(
+                            Random.Range(MinExplosionForce, MaxExplosionForce),
+                            location,
+                            Random.Range(MinExplosionRadius, MaxExplosionRadius)
+                        );
                     }
-
-                    Coroutine co = StartCoroutine("CleanUp");
                 }
+
+                co = StartCoroutine("CleanUp");
             }
 
             public IEnumerator CleanUp()
             {
                 yield return new WaitForSecondsRealtime(CleanUpTime);
-                int index = Random.Range(0, _gameObjectsToCleanUp.Count - 1);
+                CleanUpEnv();
+            }
 
-                _gameObjectsToCleanUp[index].SetActive(false);
-                foreach (var item in Rigidbodies)
-                {
-                    if(_gameObjectsToCleanUp[index].GetComponent<Rigidbody>().Equals(item))
-                    {
+            public void CleanUpEnv()
+            {
+                _gameObjectsToCleanUp = _gameObjectsToCleanUp.FindAll(x => x != null);
+                if (_gameObjectsToCleanUp.Count == 0 || _gameObjectsToCleanUp[0] == null) { return; }
+                _gameObjectsToCleanUp.TrimExcess();
+
+                _gameObjectsToCleanUp.First(x => x != null).SetActive(false);
+
+                foreach (var item in Rigidbodies) {
+                    if (_gameObjectsToCleanUp.First().GetComponent<Rigidbody>().Equals(item)) {
                         Rigidbodies.Remove(item);
                         break;
-                    } 
+                    }
                 }
 
-                foreach (var item in Renderers)
-                {
-                    if (_gameObjectsToCleanUp[index].GetComponent<Renderer>().Equals(item))
-                    {
+                foreach (var item in Renderers) {
+                    if (_gameObjectsToCleanUp.First().GetComponent<Renderer>().Equals(item)) {
                         Renderers.Remove(item);
                         break;
                     }
                 }
 
-                Destroy(_gameObjectsToCleanUp[index]);
+                Destroy(_gameObjectsToCleanUp.First());
 
-                _gameObjectsToCleanUp.RemoveAt(index);
-                _gameObjectsToCleanUp.TrimExcess();
-
-                if(_gameObjectsToCleanUp.Count > 0)
-                {
-                    StartCoroutine("CleanUp");
+                if (_gameObjectsToCleanUp.Count > 0) {
+                    Coroutine co = StartCoroutine("CleanUp");
                 }
             }
-
 
             /// <summary>
             /// Updates the box collider's shape based on a raycast to see if there's any material to manipulate.
@@ -228,6 +190,11 @@ namespace H1ddenGames
 
                 // Once the collider gets below a certain size, there is no need to have it active anymore.
                 if (BoxCollider.size.x < 0.5f || BoxCollider.size.y < 0.5f || BoxCollider.size.z < 0.5f) {
+                    if(BoxCollider.enabled == false)
+                    {
+                        return;
+                    }
+
                     BoxCollider.enabled = false;
                     return;
                 }
@@ -259,15 +226,6 @@ namespace H1ddenGames
                     BoxCollider.size = new Vector3(BoxCollider.size.x, BoxCollider.size.y / 3, BoxCollider.size.z);
                     BoxCollider.center = new Vector3(BoxCollider.center.x, BoxCollider.size.y / 3, BoxCollider.center.z);
                 }
-            }
-
-            void OnDrawGizmos()
-            {
-                Gizmos.color = Color.red;
-                Vector3 size = new Vector3(BoxCollider.size.x, BoxCollider.size.y / 3, BoxCollider.size.z);
-                Gizmos.DrawWireCube(BoxCollider.center * (BoxCollider.size.y / 2.5f), size); // Top
-                Gizmos.DrawWireCube(BoxCollider.center, size); // Center
-                Gizmos.DrawWireCube(BoxCollider.center / BoxCollider.size.y, size); // Bottom
             }
         }
     }
