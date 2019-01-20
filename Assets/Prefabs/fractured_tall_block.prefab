@@ -54,6 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minExplosionForce: 1250
   _maxExplosionForce: 2000
+  _hitsToBreak: 4
+  _isExplosive: 0
   _minExplosionRadius: 3
   _maxExplosionRadius: 4.5
   _effectDistance: 4
@@ -62,35 +64,7 @@ MonoBehaviour:
   _cleanUpTime: 2
   _replacementMaterial: {fileID: 2100000, guid: 9184292d03a3e574b995e0e4f23e2137,
     type: 3}
-  _boxCollider: {fileID: 2078939562}
-  _rigidbodies:
-  - {fileID: 395797162}
-  - {fileID: 395797160}
-  - {fileID: 395797158}
-  - {fileID: 395797156}
-  - {fileID: 395797154}
-  - {fileID: 395797152}
-  - {fileID: 395797150}
-  - {fileID: 395797148}
-  _renderers:
-  - {fileID: 7167708632341423892}
-  - {fileID: 5768088006583111345}
-  - {fileID: 4327262017652992060}
-  - {fileID: 1238671597770969076}
-  - {fileID: 7928509980191281846}
-  - {fileID: 4406843613734409108}
-  - {fileID: 5056218134638424737}
-  - {fileID: 1833557727791641999}
-  _distances:
-  - 0.8335711
-  - 0.97365564
-  - 1.165034
-  - 0.755433
-  - 2.1639602
-  - 1.7366092
-  - 1.2284112
-  - 2.2054744
-  _gameObjectsToCleanUp: []
+  _animator: {fileID: 0}
 --- !u!65 &2078939562
 BoxCollider:
   m_ObjectHideFlags: 0
