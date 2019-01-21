@@ -156,6 +156,9 @@ namespace H1ddenGames
                     }
                     else
                     {
+                        _animator.SetTrigger("isBroken");
+                        _animator.enabled = false;
+
                         // Otherwise, get the rigidbody and add an explosion force.
                         Vector3 location = new Vector3(
                             transform.position.x + Random.Range(MinExplosionRange, MaxExplosionRange),
@@ -170,8 +173,6 @@ namespace H1ddenGames
                         );
                     }
 
-                    _animator.SetTrigger("isBroken");
-                    _animator.StopPlayback();
                     UpdateClickableArea();
                 }
 
@@ -222,6 +223,10 @@ namespace H1ddenGames
             {
                 if(HitsToBreak <= 0) {
                     BoxCollider.enabled = false;
+                    foreach (var item in Rigidbodies)
+                    {
+                        _gameObjectsToCleanUp.Add(item.gameObject);
+                    }
                 } else { return; }
             }
         }
