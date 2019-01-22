@@ -5,11 +5,11 @@ Testing destructible environments created in Blender through Unity.
 <editor-fold>
   1. Pressing buttons:
 
-    ```A > A means press A then press A again```
+      ```A > A means press A then press A again```
 
-    ```S > Z means press S then press Z```
+      ```S > Z means press S then press Z```
 
-    ```Ctrl + Alt + U means press Ctrl and Alt and U at the same time.```
+      ```Ctrl + Alt + U means press Ctrl and Alt and U at the same time.```
 </editor-fold>
 
 ### Creating the Destructible Blend Object in Blender
@@ -17,6 +17,7 @@ Testing destructible environments created in Blender through Unity.
   1. Open blender, delete the default objects that are created by pressing ```A > A > DEL > ENTER```
 
     ![OpenFileMenu](markdown-images/section-creating-blender-object/OpenFileMenu.png)
+
 
   2. Go to ```File > User Preferences``` or ```Ctrl + Alt + U```
 
@@ -72,6 +73,7 @@ Testing destructible environments created in Blender through Unity.
   1. With Blender open to the file you created in the first section "Creating The Destructible Blend Object in Blender", press ```File > Export > FBX```
 
     ![ExportObject](markdown-images/section-exporting/ExportObject.png)
+    
 
   2. Move the FBX files from the unfractured and fractured cube to your Unity project.  
 </editor-fold>
