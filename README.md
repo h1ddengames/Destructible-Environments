@@ -25,8 +25,7 @@ Testing destructible environments created in Blender through Unity.
   4. Save User Settings.
     ![AddAddOns](markdown-images/section-creating-blender-object/AddAddOns.png)
 
-  5. Go to ```Create > Add Cube``` This adds a basic cube to the scene.
-
+  5. Go to ```Create > Add Cube``` This adds a basic cube to the scene. Any self made object can be used with plenty of different shape configurations.
     ![AddCube](markdown-images/section-creating-blender-object/AddCube.png)
 
   6. Press ```S > Z > 2``` This will scale the cube to be 2 units high.
@@ -34,8 +33,7 @@ Testing destructible environments created in Blender through Unity.
   7. Hold ```CTRL``` and move the cube by the blue arrow up until the bottom of the cube rests on the grid surface.
     ![MakeCubeTaller](markdown-images/section-creating-blender-object/MakeCubeTaller.png)
 
-  8. Go to ```Tools > Cell Fracture```
-
+  8. Go to ```Tools > Cell Fracture``` This will open up the Cell Fracture menu which will convert the solid cube that was created into fractured pieces of itself.
     ![OpenFractureMenu](markdown-images/section-creating-blender-object/OpenFractureMenu.png)
 
   9. Change the Noise to ```0.85`` or above. This value is arbitrary. Choose a value that looks good to you. Then press OK.
@@ -93,5 +91,32 @@ Testing destructible environments created in Blender through Unity.
 
 ### Creating a material that changes color over time
 <editor-fold>
+  1. In Unity, click ```Window > Package Manager```
+    ![PackageManager](markdown-images/section-create-material/PackageManager.png)
 
+  2. If you want to use the ShaderGraph then you must be using either the Light Weight Render Pipeline (LWRP) or the High Definition Render Pipeline (HDRP) so update those and get download/update the ShaderGraph in the Package Manager.
+    ![HDRPUpToDate](markdown-images/section-create-material/HDRPUpToDate.png)
+    ![LWRPUpToDate](markdown-images/section-create-material/LWRPUpToDate.png)
+    ![ShaderGraph](markdown-images/section-create-material/ShaderGraph.png)
+
+  3. In Project, select ```Right click > Create > Material```
+    ![CreateMaterial](markdown-images/section-create-material/CreateMaterial.png)
+
+  4. Then right click again and select ```Create > Shader > PBR Graph```
+    ![CreateShader](markdown-images/section-create-material/CreateShader.png)
+
+  5. Drag the shader onto the material to apply the shader to the material.  
+
+  6. Double click the shader to open up the ShaderGraph.
+
+  7. Create the glowing material using the ShaderGraph.
+    ![ShaderGraphGlowingShader](markdown-images/section-create-material/ShaderGraphGlowingShader.png)
+
+  8. The Time node is multiplied by itself twice in order to speed up the change between the two colors.
+
+  9. The two colors are defined by the color nodes and could be any two colors.
+
+  10. The lerp node makes the color change evenly from red to blue.
+
+  11. The left hand side nodes are all connected together through the blue lines and then all connected to the Albedo of the PBR Master node.
 <editor-fold>
