@@ -26,6 +26,7 @@ Testing destructible environments created in Blender through Unity.
     ![AddAddOns](markdown-images/section-creating-blender-object/AddAddOns.png)
 
   5. Go to ```Create > Add Cube``` This adds a basic cube to the scene.
+
     ![AddCube](markdown-images/section-creating-blender-object/AddCube.png)
 
   6. Press ```S > Z > 2``` This will scale the cube to be 2 units high.
@@ -34,6 +35,7 @@ Testing destructible environments created in Blender through Unity.
     ![MakeCubeTaller](markdown-images/section-creating-blender-object/MakeCubeTaller.png)
 
   8. Go to ```Tools > Cell Fracture```
+
     ![OpenFractureMenu](markdown-images/section-creating-blender-object/OpenFractureMenu.png)
 
   9. Change the Noise to ```0.85`` or above. This value is arbitrary. Choose a value that looks good to you. Then press OK.
