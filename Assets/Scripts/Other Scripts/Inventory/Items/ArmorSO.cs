@@ -7,7 +7,7 @@ namespace H1ddenGames
     namespace ItemSystems
     {
         [CreateAssetMenu(fileName = "New Armor Item", menuName = "H1ddenGames/ItemSystem/Armor Scriptable Object")]
-        public class ArmorSO : ItemSO
+        public class ArmorSO : EquipableSO
         {
 
         }
