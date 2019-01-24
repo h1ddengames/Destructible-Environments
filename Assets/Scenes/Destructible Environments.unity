@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd147473757ffe41b6330307631084e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 0}
+  playerInventory: {fileID: 502418444}
   inventories: []
 --- !u!4 &325882051
 Transform:
@@ -1258,8 +1258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 502418443}
-  inventorySystem: {fileID: 0}
-  itemSystem: {fileID: 0}
+  inventorySystem: {fileID: 325882050}
+  itemSystem: {fileID: 1457303345}
 --- !u!4 &872275382
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,8 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533ae7879b89deb469571484c6f38008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 6986288489352403642, guid: d204d7d6497f52a4889db675468d7787, type: 3}
+  items: []
 --- !u!4 &1457303346
 Transform:
   m_ObjectHideFlags: 0

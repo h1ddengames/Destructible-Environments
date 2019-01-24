@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5c96f5499e0dd4ca1b242efdc2301c, type: 3}
+  m_Name: Gold Ring
+  m_EditorClassIdentifier: 
+  itemBase:
+    itemID: hVJClmYl
+    itemName: Gold Ring
+    itemDescription: A gold ring dropped by a monster.
+    itemTags:
+    - Gold
+    - Ring
+  itemInventoryBase:
+    itemIsDroppable: 1
+    itemIsTradeable: 1
+    itemIsSellable: 1
+    inventoryTab: 1
+    itemRarity: 2
+  itemStatsBase:
+    itemMainStats:
+      intelligence: 5
+      luck: 4
+      dexterity: 3
+      strength: 3
+    itemAttackStats:
+      physicalAttack: 4
+      magicalAttack: 4
+      elementalAttack: 2
+    itemDefenseStats:
+      physicalDefense: 3
+      magicalDefense: 3
+      elementalDefense: 3
+  itemDetailsBase:
+    itemLevel: 6
+    itemStatRequirements:
+      intelligence: 3
+      luck: 3
+      dexterity: 2
+      strength: 2
