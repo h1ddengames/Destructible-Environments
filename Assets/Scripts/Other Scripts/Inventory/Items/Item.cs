@@ -7,7 +7,7 @@ namespace H1ddenGames
 {
     namespace ItemSystems
     {
-        public abstract class Item : MonoBehaviour
+        public class Item : MonoBehaviour
         {
             [SerializeField] private ItemSO itemSO;
 
@@ -15,17 +15,17 @@ namespace H1ddenGames
             public ItemSO ItemSO { get => itemSO; set => itemSO = value; }
             #endregion
 
-            public virtual void PickUpItem()
+            public void PickUpItem()
             {
                 InventorySystem.Instance.PlayerInventory.Items.Add(gameObject);
             }
 
-            public virtual void DropItem()
+            public void DropItem()
             {
                 InventorySystem.Instance.PlayerInventory.Items.Remove(gameObject);
             }
 
-            public virtual void UseItem()
+            public void UseItem()
             {
 
             }

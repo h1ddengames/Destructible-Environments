@@ -10,7 +10,8 @@ namespace H1ddenGames
 {
     namespace ItemSystems
     {
-        public abstract class ItemSO : ScriptableObject
+        [CreateAssetMenu(fileName = "New Item", menuName = "H1ddenGames/ItemSystem/Item Scriptable Object")]
+        public class ItemSO : ScriptableObject
         {
             [SerializeField] private ItemBase itemBase;
             [SerializeField] private ItemInventoryBase itemInventoryBase;
